@@ -4,6 +4,7 @@ import datetime
 from stream.models import Stream
 from items.models import PhotoItem, TweetItem
 from django.contrib.auth.models import User
+from pip._vendor.requests.models import Response
 
 # Create your tests here.
 
@@ -30,5 +31,10 @@ class StreamViewTest(TestCase):
         stream_item = Stream.objects.create(user=user, created_at=datetime.datetime.now(), tweet=tweet)
         response = self.client.get(reverse('stream'))
         self.assertContains(response, tweet.text)
+        
+    def test_deleted_content_is_not_shown(self):
+        response = self.client.get(reverse('stream'))
+        for item in response.context['stream']:
+            self.assertEqual(item.deleted, False, 'A deleted item was shown')
         
     
