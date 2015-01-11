@@ -9,6 +9,13 @@ class Stream(models.Model):
     tweet = models.ForeignKey(TweetItem, null=True, blank=True, related_name="streams")
     photo = models.ForeignKey(PhotoItem, null=True, blank=True, related_name="streams")
     
+    @property
+    def deleted(self):
+        if self.tweet:
+            return self.tweet.deleted
+        if self.photo:
+            return self.photo.deleted
+    
     def clean(self):
         if self.tweet is None and self.photo is None:
             raise ValidationError('A Stream Item must have either a Tweet or a Photo')
