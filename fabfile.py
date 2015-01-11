@@ -19,3 +19,8 @@ def requirements():
     
 def test():
     run_manage('test')
+    
+def reset():
+    run_manage('flush --noinput')
+    run_manage('migrate')
+    run_manage('loaddata stream/fixtures/stream.json')
