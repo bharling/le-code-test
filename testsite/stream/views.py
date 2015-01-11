@@ -6,6 +6,5 @@ from django.http import HttpResponse
 
 
 def stream(request):
-    #return HttpResponse('ok')
-    stream_items = Stream.objects.filter(photo__deleted=False, tweet__deleted=False)
-    return render(request, 'stream.html', {stream:stream_items})
+    stream_items = Stream.objects.all()
+    return render(request, 'stream.html', {'stream':stream_items})
