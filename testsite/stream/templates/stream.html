@@ -1,3 +1,26 @@
 {% extends '__base.html' %}
+{% load static %}
 
 {% block title %}Your Stream{% endblock %}
+
+{% block content %}
+
+<h1>Your Stream</h1>
+
+{% for item in stream %}
+	<div class="stream_item">
+		<span class="date">{{ item.created_at }}</span>
+		
+		{% if item.photo %}
+			<div>
+				<img class="responsive" src="/media/{{ item.photo }}">
+			</div>
+		{% else %}
+			<h2>{{ item.tweet }}</h2>
+		{% endif %}
+	
+	</div>
+
+{% endfor %}
+
+{% endblock %}
